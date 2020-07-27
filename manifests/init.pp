@@ -11,6 +11,7 @@ class thehive (
   String $group = 'thehive',
   String $config_dir = '/etc/thehive',
   String $config_file = 'application.conf',
+  String $config_template = 'thehive/application.erb',
   # Increase the limit of mmap count, so ElasticSearch doesn't throw a memory exception during startup.
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
   Integer $vm_max_map_count = 262144,
@@ -19,9 +20,10 @@ class thehive (
   Integer $elasticsearch_uid = 1000,
   String $elasticsearch_index = 'the_hive',
   String $elasticsearch_cluster_name = 'hive',
+  String $elasticsearch_uri = 'http://127.0.0.1:9200/',
   String $elasticsearch_host_address = '127.0.0.1',
+  Integer $elasticsearch_host_port = 9200,
   String $elasticsearch_transport_host_address = '0.0.0.0',
-  Integer $elasticsearch_host_port = 9300,
   Integer $elasticsearch_thread_pool_search_queue_size = 100000,
   String $elasticsearch_docker_image = 'docker.elastic.co/elasticsearch/elasticsearch:5.6.14',
   String $elasticsearch_docker_volume_name = 'thehive',

@@ -16,7 +16,8 @@ search {
   cluster = <%= @elasticsearch_cluster_name %>
 
   # ElasticSearch instance address.
-  host = ["<%= @elasticsearch_host_address %>:<%= @elasticsearch_host_port %>"]
+  uri = "<%= @elasticsearch_uri %>"
+  #host = ["<%= @elasticsearch_host_address %>:<%= @elasticsearch_host_port %>"]
 
   ## Advanced configuration
   # Scroll keepalive.
@@ -212,7 +213,7 @@ cortex {
 }
 <% end -%>
 
-<% if @misp_enabled == true -%>
+<% if @misp_enabled -%>
 # MISP
 # TheHive can connect to one or multiple MISP instances. Give each  MISP
 # instance a name and specify the associated Authkey that must  be  used
@@ -260,7 +261,7 @@ misp {
       tags = <%= misp_instance["misp_exclusion_tags"] %>
     }
 
-    <% if misp_instance["misp_ws_enabled"] == true -%>
+    <% if misp_instance["misp_ws_enabled"] -%>
     ## HTTP client configuration (SSL and proxy)
     # Truststore to use to validate the X.509 certificate of the MISP
     # instance if the default truststore is not sufficient.

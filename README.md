@@ -120,8 +120,9 @@ The template for TheHive configuration file is present in [templates/application
 * `elasticsearch_uid`: UID for elasticsearch user in Docker container (default: `1000`)
 * `elasticsearch_index`: ElasticSearch index is similar to a database, which provides a type of data organisation mechanism (default: `'the_hive'`)
 * `elasticsearch_cluster_name`: Elasticsearch cluster is a group of one or more Elasticsearch nodes instances that are connected together (default: `'hive'`)
+* `elasticsearch_uri`: URL where ElasticSearch (default: `'http://127.0.0.1:9200/'`). If multiple Elasticsearch nodes are used as a cluster, you should add addresses of the master nodes in the url like this: `'http://node1:9200,node2:9200/'`
 * `elasticsearch_host_address`: Address where ElasticSearch is being hosted (default: `'127.0.0.1'`)
-* `elasticsearch_host_port`: ElasticSearch host port (default: `9300`)
+* `elasticsearch_host_port`: ElasticSearch host port (default: `9200`)
 * `elasticsearch_transport_host_address`: ElasticSearch transport host is used for internal communication between nodes within the cluster (default: `'0.0.0.0'`)
 * `elasticsearch_thread_pool_search_queue_size`: ElasticSearch thread pools are used to improve threads memory consumption. The queue size allow pending requests to be held instead of discarded (default: `100000`)
 * `elasticsearch_docker_image`: Docker image used for ElasticSearch (default: `'docker.elastic.co/elasticsearch/elasticsearch:5.6.14'`)

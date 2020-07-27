@@ -23,7 +23,7 @@ class thehive::config inherits thehive {
 
   file { "${thehive::config_dir}/${thehive::config_file}":
     ensure  => file,
-    content => template('thehive/application.erb'),
+    content => template($thehive::config_template),
     owner   => $thehive::user,
     group   => $thehive::group,
     mode    => '0440',
