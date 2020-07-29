@@ -27,6 +27,7 @@ class thehive::config inherits thehive {
     owner   => $thehive::user,
     group   => $thehive::group,
     mode    => '0440',
+    notify  => Service['thehive.service'],
   }
 
   sysctl { 'vm.max_map_count':
