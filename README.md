@@ -21,7 +21,7 @@ The Puppet `thehive` class provides a default installation of TheHive. Before im
 
 > Note: This module does not handle a reverse proxy. An example for creating a reverse proxy using Apache is provided [below](#creating-a-reverse-proxy).
 
-#### Using Heira
+#### Using Hiera
 
 The default parameters are present in the [manifests/init.pp](manifests/init.pp) file, which one can override, if required. Since `play_secret_key` is a required parameter, its value must be specified. To change the port on which TheHive instance is listening, update the `port` variable in the Hiera configuration:
 
@@ -210,3 +210,4 @@ The template for TheHive configuration file is present in [templates/application
   - `misp_webserver_proxy`: MISP web server proxy to use
   - `misp_webserver_port`: MISP web server port to use
   - `misp_purpose`: MISP purpose defines if the instance can be used to import events (`ImportOnly`), export cases (`ExportOnly`) or both (`ImportAndExport`) (default: `'ImportAndExport'`)
+  - `webhooks_url`: URL for webhooks

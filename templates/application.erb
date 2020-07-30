@@ -284,3 +284,10 @@ misp {
   <% end -%>
 }
 <% end -%>
+<% if @webhooks_url -%>
+webhooks {
+  CallbackTranslator {
+    url = "<%= @webhooks_url %>"
+  }
+}
+<% end -%>

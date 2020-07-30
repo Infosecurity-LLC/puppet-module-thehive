@@ -123,6 +123,7 @@ class thehive (
     'misp_ws_port' => '',
     'misp_purpose' => 'ImportAndExport'}
   ],
+  Optional[String] $webhooks_url = undef,
   ) {
   contain '::thehive::install'
 
