@@ -34,14 +34,15 @@ search {
     mapping.nested_fields.limit = <%= @elasticsearch_max_nested_fields %>
   }
 
+
+<% if @elasticsearch_xpack_enabled -%>
   ### XPack SSL configuration
-  <% if @elasticsearch_xpack_enabled == true -%>
   # Username for XPack authentication
   search.username = "<%= @elasticsearch_xpack_username %>"
   # Password for XPack authentication
   search.password = "<%= @elasticsearch_xpack_password %>"
-  <% end -%>
-  <% if @elasticsearch_ssl_enabled == true -%>
+<% end -%>
+<% if @elasticsearch_ssl_enabled -%>
   # Enable SSL to connect to ElasticSearch
   search.ssl.enabled = "<%= @elasticsearch_ssl_enabled %>"
   # Path to certificate authority file
@@ -50,9 +51,9 @@ search {
   search.ssl.certificate = "<%= @elasticsearch_certificate_path %>"
   # Path to key file
   search.ssl.key = "<%= @elasticsearch_ssl_key %>"
-  <% end -%>
-  <% if @elasticsearch_searchguard_enabled == true -%>
-  #)  ### SearchGuard configuration
+<% end -%>
+<% if @elasticsearch_searchguard_enabled -%>
+  ### SearchGuard configuration
   # Path to JKS file containing client certificate
   search.guard.keyStore.path = "<%= @elasticsearch_searchguard_keystore_path %>"
   # Password of the keystore
@@ -65,7 +66,7 @@ search {
   search.guard.hostVerification = "<%= @elasticsearch_searchguard_host_verification %>"
   # If hostname verification is enabled, specify if hostname should be resolved
   search.guard.hostVerificationResolveHostname = "<%= @elasticsearch_searchguard_host_verification_resolve_hostname %>"
-  <% end -%>
+<% end -%>
 }
 
 # Authentication
@@ -82,7 +83,7 @@ auth {
   method.basic = "<%= @auth_basic_enabled %>"
 
 
-  <% if @auth_active_directory_enabled == true -%>
+<% if @auth_active_directory_enabled -%>
   ad {
     # The Windows domain name in DNS format. This parameter is required if you do not use
     # 'serverNames' below.
@@ -98,9 +99,9 @@ auth {
     # If 'true', use SSL to connect to the domain controller.
     useSSL = <%= @auth_ad_use_ssl %>
   }
-  <% end -%>
+<% end -%>
 
-  <% if @auth_ldap_enabled == true -%>
+<% if @auth_ldap_enabled -%>
   ldap {
     # The LDAP server name or address. The port can be specified using the 'host:port'
     # syntax. This parameter is required if you don't use 'serverNames' below.
@@ -125,9 +126,9 @@ auth {
     # If 'true', use SSL to connect to the LDAP directory server.
     useSSL = <%= @auth_ldap_use_ssl %>
   }
-  <% end -%>
+<% end -%>
 
-  <% if @auth_oauth2_sso_enabled == true -%>
+<% if @auth_oauth2_sso_enabled -%>
   oauth2 {
     # Client ID for OAuth2.
     clientId = "<%= @auth_oauth2_client_id %>"
@@ -176,13 +177,13 @@ auth {
     groups {
       url = "<%= @auth_sso_group_url %>"
       mappings {
-        <% @auth_sso_mappings.each do |auth_sso_mapping| -%>
-          <%= auth_sso_mapping["auth_sso_mapping_key"] %> = <%= auth_sso_mapping["auth_sso_mapping_permissions"] %>,
-        <% end -%>
+<% @auth_sso_mappings.each do |auth_sso_mapping| -%>
+        <%= auth_sso_mapping["auth_sso_mapping_key"] %> = <%= auth_sso_mapping["auth_sso_mapping_permissions"] %>,
+<% end -%>
       }
     }
   }
-  <% end -%>
+<% end -%>
 }
 
 # Maximum time between two requests without requesting authentication
@@ -196,7 +197,7 @@ play.http.parser.maxMemoryBuffer = <%= @http_parser_maxmemorybuffer %>
 # Max file size
 play.http.parser.maxDiskBuffer = <%= @http_parser_maxdiskbuffer %>
 
-<% if @cortex_enabled == true -%>
+<% if @cortex_enabled -%>
 # Cortex
 # TheHive can connect to one or multiple  Cortex  instances. Give each
 # Cortex instance a name and specify the associated URL.
@@ -204,12 +205,12 @@ play.http.parser.maxDiskBuffer = <%= @http_parser_maxdiskbuffer %>
 play.modules.enabled += connectors.cortex.CortexConnector
 
 cortex {
-  <% @cortex_instances.each do |cortex_instance| -%>
+<% @cortex_instances.each do |cortex_instance| -%>
   "<%= cortex_instance["cortex_server_id"] %>" {
     url = "<%= cortex_instance["cortex_server_url"] %>"
     key = "<%= cortex_instance["cortex_server_key"] %>"
   }
-  <% end -%>
+<% end -%>
 }
 <% end -%>
 
@@ -261,7 +262,7 @@ misp {
       tags = <%= misp_instance["misp_exclusion_tags"] %>
     }
 
-    <% if misp_instance["misp_ws_enabled"] -%>
+<% if misp_instance["misp_ws_enabled"] -%>
     ## HTTP client configuration (SSL and proxy)
     # Truststore to use to validate the X.509 certificate of the MISP
     # instance if the default truststore is not sufficient.
@@ -275,13 +276,13 @@ misp {
         port = "<%= misp_instance["misp_ws_port"] %>"
       }
     }
-    <% end -%>
+<% end -%>
 
     # MISP purpose defines if this instance can be used to import events (ImportOnly), export cases (ExportOnly) or both (ImportAndExport)
     # Default is ImportAndExport
     purpose = "<%= misp_instance["misp_purpose"] %>"
   }
-  <% end -%>
+<% end -%>
 }
 <% end -%>
 <% if @webhooks_url -%>
